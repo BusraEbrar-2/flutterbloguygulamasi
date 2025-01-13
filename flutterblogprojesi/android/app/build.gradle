@@ -1,0 +1,53 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+    id 'com.google.gms.google-services'
+}
+
+android {
+    namespace = "com.example.flutterblogproject"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        applicationId = "com.example.flutterblogproject"
+        minSdkVersion 23 // Firebase ile uyumlu olması için burayı 23 yapıyoruz
+        targetSdkVersion flutter.targetSdkVersion
+        versionCode flutter.versionCode
+        versionName flutter.versionName
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+dependencies {
+    // Firebase BoM'u kullanarak Firebase SDK bağımlılıklarını ekliyoruz
+    implementation platform('com.google.firebase:firebase-bom:33.7.0')
+
+    // Firebase Authentication gibi özellikleri buraya ekleyebilirsiniz
+    implementation 'com.google.firebase:firebase-auth'
+
+    // Diğer Firebase bileşenlerini de ekleyebilirsiniz, örn:
+    // implementation 'com.google.firebase:firebase-firestore'
+    // implementation 'com.google.firebase:firebase-analytics'
+}
+
+apply plugin: 'com.google.gms.google-services'  // Firebase ile entegrasyon için bu satır eklenmeli
